@@ -2,12 +2,15 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {setExample} from '../actionCreators/example';
 import NavBar from '../components/navbar';
-
+import GameContainer from './gameContainer'
 const mapStateToProps = (state) => {
   return {
     info: state.example.info
   }
 }
+
+
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setExample(text){
@@ -20,15 +23,17 @@ class HomeContainer extends Component {
   constructor(){
     super()
   }
-  componentWillMount(){
+
+   componentWillMount(){
     this.props.setExample('dispatch happened!') //the only dispatch that should stay
   }
   render(){
     return (
-      <div className="container-fluid" >
+      <div className="container-fluid"   >
         <NavBar />
         <div className="col-md-12">
-        <h1>{this.props.info}</h1>
+          <h1>{this.props.info}</h1>
+        <GameContainer />
 
         </div>
       </div>

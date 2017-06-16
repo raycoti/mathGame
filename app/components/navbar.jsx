@@ -5,7 +5,7 @@ const NavBar = function(){
 
  return(
     <nav className="navbar navbar-fixed-top navbar-toggleable-md navbar-light bg-faded"> 
-          <div id="navigation" className="col-md-12 thenav">
+          <div id="navigation" className="col-md-12 thenav" >
             <ul>
               <li className="theNav"><NavLink exact to="/" activeClassName="active">HOME</NavLink></li>
             </ul>

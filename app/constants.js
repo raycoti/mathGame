@@ -1,2 +1,6 @@
 export const SET_EXAMPLE = 'SET_EXAMPLE';
+export const MOVE_PLAYER_LEFT = 'MOVE_PLAYER_LEFT';
+export const MOVE_PLAYER_RIGHT = 'MOVE_PLAYER_RIGHT';
+export const MOVE_PLAYER_UP = 'MOVE_PLAYER_UP';
+export const MOVE_PLAYER_DOWN = 'MOVE_PLAYER_DOWN';
 
