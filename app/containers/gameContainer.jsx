@@ -2,14 +2,20 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Layer, Rect, Stage, Group, Label, Text} from 'react-konva';
 import {setExample} from '../actionCreators/example';
+import {movePlayer} from '../actionCreators/player'
 import GameScreen from '../components/gameScreen'
 const mapStateToProps = (state) => ({
-  example: state.example.info
+  x: state.player.x,
+  y: state.player.y,
+  turns: state.player.turns,
 });
 
 const mapDispatchToProps = (dispatch)=> ({
     setExample(text){
       dispatch(setExample(text));
+    },
+    move(direction,speed){
+      dispatch(movePlayer(direction,speed));
     },
 });
 
@@ -20,15 +26,34 @@ class GameContainer extends Component{
   }
 
  handleKey(e){
-    const key = e.keyCode;
-    if(key>=37 && key<=40 ){
-      console.log(e.keyCode)
+   if(this.props.turns<1) return;
+   e.preventDefault()
+    const key = e.keyCode || e.which;
+    switch(key){
+      case(87)://w
+        this.props.move('up',50);
+    
+        return;
+      case(83)://s
+        this.props.move('down',50);
+    
+        return;
+      case(65)://a
+        this.props.move('left',50);
+    
+        return;
+      case(68)://d
+        this.props.move('right',50);
+        
+        return;
+      default:
+        return;
     }
+    
   }
 
   componentWillMount(){
-    this.props.setExample('Canvas eventually')
-    document.addEventListener('keypress',this.handleKey ,false)
+    document.addEventListener("keydown", this.handleKey,false)
 
   }
 
@@ -36,7 +61,7 @@ class GameContainer extends Component{
     return(
       <Stage width={window.innerWidth-100} height={700} >
         <Layer > 
-          <GameScreen />   
+          <GameScreen x={this.props.x} y={this.props.y} />   
         </Layer>
       </Stage>
     )
