@@ -2,8 +2,12 @@ import {connect} from 'react-redux';
 import React, {Component} from 'react';
 import {Layer, Rect, Stage, Group, Label, Text} from 'react-konva';
 import {setExample} from '../actionCreators/example';
-import {movePlayer} from '../actionCreators/player'
-import GameScreen from '../components/gameScreen'
+import {movePlayer} from '../actionCreators/player';
+import GameScreen from '../components/gameScreen';
+import io from 'socket.io-client';
+
+  
+
 const mapStateToProps = (state) => ({
   x: state.player.x,
   y: state.player.y,
@@ -56,7 +60,13 @@ class GameContainer extends Component{
     document.addEventListener("keydown", this.handleKey,false)
 
   }
-
+  componentDidMount(){
+    const socket = io()
+  socket.on('news', function (data) {
+    console.log(data);
+    socket.emit('my other event', { my: 'data' });
+  });
+  }
   render(){
     return(
       <Stage width={window.innerWidth-100} height={700} >
