@@ -6,7 +6,7 @@ import {movePlayer} from '../actionCreators/player';
 import GameScreen from '../components/gameScreen';
 import io from 'socket.io-client';
 
-  
+let socket;
 
 const mapStateToProps = (state) => ({
   x: state.player.x,
@@ -33,6 +33,11 @@ class GameContainer extends Component{
    if(this.props.turns<1) return;
    e.preventDefault()
     const key = e.keyCode || e.which;
+   const payload= { x: this.props.x,y:  this.props.y, turns: this.props.turns };
+   socket.emit('player',{emitName: 'playerMove', payload: payload})
+   socket.on('playerMove', function (data) {
+    console.log(`blahblah`,data);
+  });
     switch(key){
       case(87)://w
         this.props.move('up',50);
@@ -57,17 +62,14 @@ class GameContainer extends Component{
   }
 
   componentWillMount(){
+    socket = io()
     document.addEventListener("keydown", this.handleKey,false)
-
-  }
-  componentDidMount(){
-    const socket = io()
-  socket.on('news', function (data) {
-    console.log(data);
-    socket.emit('my other event', { my: 'data' });
-  });
+    socket.emit('load', {data: 'hi'})
   }
   render(){
+    socket.on('location', function(data){
+     console.log('loc',data)
+   })
     return(
       <Stage width={window.innerWidth-100} height={700} >
         <Layer > 

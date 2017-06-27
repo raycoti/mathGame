@@ -1,4 +1,4 @@
-import {MOVE_PLAYER_LEFT, MOVE_PLAYER_RIGHT, MOVE_PLAYER_UP, MOVE_PLAYER_DOWN} from '../constants';
+import {MOVE_PLAYER_LEFT, MOVE_PLAYER_RIGHT, MOVE_PLAYER_UP, MOVE_PLAYER_DOWN, SET_PLAYER} from '../constants';
 
 const initialState = {
   x: 0,
