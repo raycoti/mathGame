@@ -1,4 +1,4 @@
-import {MOVE_PLAYER_LEFT, MOVE_PLAYER_RIGHT, MOVE_PLAYER_UP, MOVE_PLAYER_DOWN} from '../constants';
+import {MOVE_PLAYER_LEFT, MOVE_PLAYER_RIGHT, MOVE_PLAYER_UP, MOVE_PLAYER_DOWN,SET_PLAYER} from '../constants';
 
 const moveUp = (speed) => ({
   type: MOVE_PLAYER_UP,
@@ -18,6 +18,11 @@ const moveRight = (speed) => ({
   speed
 })
 
+export const setPlayer = (x,y) => ({
+  type: SET_PLAYER,
+  x,
+  y
+})
 
 export const movePlayer= (direction, speed) => {
   return (dispatch) => {

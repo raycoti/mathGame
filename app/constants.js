@@ -4,4 +4,5 @@ export const MOVE_PLAYER_RIGHT = 'MOVE_PLAYER_RIGHT';
 export const MOVE_PLAYER_UP = 'MOVE_PLAYER_UP';
 export const MOVE_PLAYER_DOWN = 'MOVE_PLAYER_DOWN';
 export const SET_PLAYER='SET_PLAYER';
-
+export const SET_OPPONENT='SET_OPPONENT';
+export const ADD_OPPONENT = 'SET_OPPONENT';

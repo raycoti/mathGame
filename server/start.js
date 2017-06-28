@@ -51,6 +51,10 @@ if (module === require.main) {
     socket.on('load', function(data){
       console.log('why hello there')
       socket.emit('location',{x,y,data: `your starting coordinates ${x}${y}`});
+      var i = clients.indexOf(socket);
+      const opponents = [...clients].splice(i,1)
+      //socket.emit('loaded',{opponents})
+      //socket.broadcast.emit('new',{id: socket.id})
     })
     x +=10;
     y+= 10; //eventually for indivitual rooms
