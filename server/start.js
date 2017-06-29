@@ -49,15 +49,17 @@ if (module === require.main) {
     console.log(data.payload, socket.id) //for updating player positionsssss
   });
     socket.on('load', function(data){
-      console.log('why hello there')
-      socket.emit('location',{x,y,data: `your starting coordinates ${x}${y}`});
+      socket.emit('location',{x,y});
       var i = clients.indexOf(socket);
-      const opponents = [...clients].splice(i,1)
-      //socket.emit('loaded',{opponents})
-      //socket.broadcast.emit('new',{id: socket.id})
+      const clientClone = [...clients]
+      clientClone.splice(i,1);
+      const opponents = clientClone.map((opponent)=>{return {id: opponent.id}})
+      socket.broadcast.emit('new',{id: socket.id})
+      console.log(opponents)
+      console.log('clients',clients.length)
+      socket.emit('loaded',{opponents})
     })
     x +=10;
-    y+= 10; //eventually for indivitual rooms
-    console.log(x)
+    y+= 10; //eventually for indivitual room
 });
 }

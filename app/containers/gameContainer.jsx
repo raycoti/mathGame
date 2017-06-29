@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch)=> ({
       dispatch(setOpponent(id,pos))
     },
     addEnemy(id,pos){
-      dispatch(addEnemy(id,pos))
+      dispatch(addOpponent(id,pos))
     },
 });
 
@@ -88,11 +88,11 @@ class GameContainer extends Component{
    })
    socket.on('loaded', function(data){
      data.opponents.forEach(enemy=>{
-       self.props.addOpponent(enemy.id);
+       self.props.addEnemy(enemy.id);
      })
    })
    socket.on('new', function(data){
-     self.props.addOpponent(data.id)
+     self.props.addEnemy(data.id)
    })
     return(
       <Stage width={window.innerWidth-100} height={700} >
