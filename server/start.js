@@ -47,14 +47,20 @@ if (module === require.main) {
     //console.log(`heyhey ${i}`,data);
     socket.broadcast.emit(data.emitName, {id: socket.id, payload: data.payload});
     console.log(data.payload, socket.id) //for updating player positionsssss
+    clients[i].x=data.payload.x;
+    clients[i].y=data.payload.y;
+    clients[i].turns=data.payload.turns;
   });
     socket.on('load', function(data){
       socket.emit('location',{x,y});
       var i = clients.indexOf(socket);
       const clientClone = [...clients]
       clientClone.splice(i,1);
-      const opponents = clientClone.map((opponent)=>{return {id: opponent.id}})
-      socket.broadcast.emit('new',{id: socket.id})
+      const opponents = clientClone.map((opponent)=>{return {id: opponent.id,
+        x: opponent.x,
+        y: opponent.y,}})
+      socket.broadcast.emit('new',{id: socket.id,x,
+        y})
       console.log(opponents)
       console.log('clients',clients.length)
       socket.emit('loaded',{opponents})

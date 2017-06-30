@@ -49,10 +49,7 @@ class GameContainer extends Component{
    const payload= { x: this.props.x,y:  this.props.y, turns: this.props.turns };
    socket.emit('player',{emitName: 'playerMove', payload: payload})
    //newplayer same deal eventually only emits to a group
-   socket.on('playerMove', function (data) {
-    console.log(`blahblah`,data)
-    self.props.setEnemy(data.id,data.payload);
-  });
+
     switch(key){
       case(87)://w
         this.props.move('up',50);
@@ -88,19 +85,27 @@ class GameContainer extends Component{
    })
    socket.on('loaded', function(data){
      data.opponents.forEach(enemy=>{
-       self.props.addEnemy(enemy.id);
+      console.log('loading',enemy)
+       self.props.addEnemy(enemy.id, {x:enemy.x, y:enemy.y} );
      })
    })
    socket.on('new', function(data){
-     self.props.addEnemy(data.id)
+     self.props.addEnemy(data.id,{x:data.x, y:data.y})
    })
+
+   socket.on('playerMove', function (data) {
+    self.props.setEnemy(data.id,data.payload);
+  });
     return(
       <Stage width={window.innerWidth-100} height={700} >
         <Layer > 
           {//title screen or gameScreen
           //title screen lets you pick a room
           }
-          <GameScreen x={this.props.x} y={this.props.y} />   
+          <GameScreen x={this.props.x} y={this.props.y} />
+          {Object.keys(this.props.enemys).map((enemy)=>{
+            return <GameScreen x={this.props.enemys[enemy].x} y={this.props.enemys[enemy].y} />
+          })}   
         </Layer>
       </Stage>
     )
